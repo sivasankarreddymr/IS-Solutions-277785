@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+ 
+<html >
+<head>
+	  <title>BMS - Customer Registration</title>
+	  <meta charset="utf-8" />
+	  <meta name="viewport" content="width=device-width, initial-scale=1" />
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	  
+	  
+</head>
+<body >
+ 
+<div class="container" data-ng-app="app">
+ 
+
+	
+	<div data-ng-controller="postcontroller">
+		<form name="customerForm" data-ng-submit="submitForm(customerForm)" novalidate>
+		<h3>Customer Registration</h3>
+	
+		<table style="width:100%;border-style:solid;border-color:lightgray">
+			  
+				<tr>
+					<td>
+					<div>	
+						<div>Name</div>
+					
+						<input type="text" data-ng-model="name" name="name" required/>
+						<span style="color:red" data-ng-show="(customerForm.name.$pristine || customerForm.name.$invalid) && submitted">Name is required.</span>
+						
+					</div>
+					</td>
+					<td>
+						<div>UserName</div>
+						<input type="text" name="username" data-ng-model="username" required/>
+						<span style="color:red" data-ng-show="(customerForm.username.$pristine || customerForm.username.$invalid) && submitted">Username is required.</span>
+					</td>
+					<td>
+						<div>Password</div>
+						<input type="password" data-ng-model="password" name="password" required/>
+						<span style="color:red" data-ng-show="(customerForm.password.$pristine || customerForm.password.$invalid) && submitted">Password is required.</span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<div>Date Of Birth</div>
+						<input type="date" data-ng-model="dob" name="dob" required/>
+						<span style="color:red" data-ng-show="(customerForm.dob.$pristine || customerForm.dob.$invalid) && submitted">Date Of Birth is required.</span>
+					</td>
+					<td>
+						<div>Gender</div>
+						<input type="radio" data-ng-model="gender"  name="gender" value="M" required>Male
+						 <input type="radio" data-ng-model="gender" name="gender" value="F" required>Female
+						 
+						 <span style="color:red" data-ng-show="(customerForm.gender.$pristine || customerForm.gender.$invalid) && submitted">Gender is required.</span>
+					</td>
+					<td>
+						<div>ReType Password</div>
+						<input type="password" data-ng-model="retypePassword" name="retypePassword" required/>
+						<span style="color:red" data-ng-show="(customerForm.retypePassword.$pristine || customerForm.retypePassword.$invalid) && submitted">Confirm Password is required.</span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<div>Contact Number</div>
+						<input type="text" data-ng-model="contactNo" name="contactNo" required/>
+						<span style="color:red" data-ng-show="(customerForm.contactNo.$pristine || customerForm.contactNo.$invalid) && submitted">Contact No is required.</span>
+					</td>
+					<td>
+						<div>Email</div>
+						<input type="text" data-ng-model="email" name="email" required/>
+						<span style="color:red" data-ng-show="(customerForm.email.$pristine || customerForm.email.$invalid) && submitted">Email is required.</span>
+					</td>
+					<td>
+						 <div>Citizenship</div>
+						<input type="text" data-ng-model="citizenship" name="citizenship" required/>
+						<span style="color:red" data-ng-show="(customerForm.citizenship.$pristine || customerForm.citizenship.$invalid) && submitted">Citizenship is required.</span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<div>Branch Name</div>
+						<input type="text" data-ng-model="branchName" name="branchName"/>
+						<span style="color:red" data-ng-show="(customerForm.branchName.$pristine || customerForm.branchName.$invalid) && submitted">Branch Name is required.</span>
+					</td>
+					<td>
+						<div>Initial Deposit</div>
+						<input type="text" data-ng-model="initialDeposit" name="deposit"/>
+						<span style="color:red" data-ng-show="(customerForm.deposit.$pristine || customerForm.deposit.$invalid) && submitted">Initial Deposit is required.</span>
+					</td>
+					<td>
+						<div>PAN Number</div>
+						<input type="text" data-ng-model="panNumber" name="panNumber"/>
+						<span style="color:red" data-ng-show="(customerForm.panNumber.$pristine || customerForm.panNumber.$invalid) && submitted">PAN Number required.</span>
+					</td>
+				</tr>
+				
+			</table>
+			 <table>
+			 <tr></tr>
+			 <tr></tr>
+			   <tr>
+			  
+			     <td><input type="submit" value="Register"/><input type="reset" value="Reset"></td><td></td><td><input type="button" value="Cancel"></td>
+			   </tr>
+			 </table>
+			
+		</form>
+ 	<div>
+	 {{registrationMessage}} 
+	</div>
+		
+	</div>
+	
+</div>
+
+<script>
+var app = angular.module('app', []);
+app.controller('postcontroller', function($scope, $http, $location) {
+	$scope.submitForm = function(form){
+		$scope.submitted = false;
+		var url = "http://localhost:8080/bank-management-service/userregistration/";
+		 $http.defaults.headers.post["Content-Type"] = "application/json";
+		var config = {
+                
+        }
+		var customer = {
+            	name	  : $scope.name,
+            username	  : $scope.username,
+            password	  : $scope.password,
+            dob			  : $scope.dob,
+            gender		  : $scope.gender,
+            retypePassord : $scope.retypePassword,
+            contactNo	  : $scope.contactNo,
+            citizenship	  : $scope.citizenship,
+            email    	  : $scope.email,
+            branchName	  : $scope.branchName,
+            initialDeposit: $scope.initialDeposit,
+            panNumber 	  : $scope.panNumber
+            
+            
+          
+            
+        };
+		
+		if(form.$invalid){
+		$http.post(url, customer, config).then(function (response) {
+			$scope.postResultMessage = response.data;
+			$window.alert(postResultMessage);
+			$scope.registrationMessage = customer.username + "Registered Successfully";
+		}, function error(response) {
+			
+			$scope.postResultMessage = "Error with status: " +  response.statusText;
+			$window.alert(response.data);
+		});
+		}
+		else{
+			window.alert('form validation failed');	
+		}
+		
+		
+	}
+});
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
