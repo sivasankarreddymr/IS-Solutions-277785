@@ -1,24 +1,26 @@
 package com.bms.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-//@Document(collection="Transaction")
+@Document(collection="Transaction")
 public class Transaction {
 
-	private String accountNO;
+	private String accountNumber;
+	private String accountNo;
 	private String accountName;
 	private String accountType;
-	private Date transactionType;
-	private String amount;
-	private String transactionDt;
-	private long transactionId;
-	public String getAccountNO() {
-		return accountNO;
+	private String  transactionType;
+	private BigDecimal amount;
+	private String transactionDate;
+	private Long transactionId;
+	public String getAccountNumber() {
+		return accountNumber;
 	}
-	public void setAccountNO(String accountNO) {
-		this.accountNO = accountNO;
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 	public String getAccountName() {
 		return accountName;
@@ -32,31 +34,36 @@ public class Transaction {
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
-	public Date getTransactionType() {
+	public String getTransactionType() {
 		return transactionType;
 	}
-	public void setTransactionType(Date transactionType) {
+	public void setTransactionType(String transactionType) {
 		this.transactionType = transactionType;
 	}
-	public String getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
-	public void setAmount(String amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
-	public String getTransactionDt() {
-		return transactionDt;
+	public String getTransactionDate() {
+		return transactionDate;
 	}
-	public void setTransactionDt(String transactionDt) {
-		this.transactionDt = transactionDt;
+	public void setTransactionDate(String transactionDate) {
+		this.transactionDate = transactionDate;
 	}
-	public long getTransactionId() {
+	public Long getTransactionId() {
 		return transactionId;
 	}
-	public void setTransactionId(long transactionId) {
+	public void setTransactionId(Long transactionId) {
 		this.transactionId = transactionId;
 	}
-	
+	public String getAccountNo() {
+		return accountNo;
+	}
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
 	
 	
 }

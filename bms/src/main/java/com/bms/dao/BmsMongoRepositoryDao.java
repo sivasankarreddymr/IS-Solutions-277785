@@ -1,6 +1,7 @@
 package com.bms.dao;
 
 import com.bms.model.Customer;
+import com.bms.model.Transaction;
 
 public interface BmsMongoRepositoryDao {
 	public int registerBMSUser(Customer customer) throws BMSDAOException;
@@ -12,8 +13,8 @@ public interface BmsMongoRepositoryDao {
 
 	/*public int insertUserTransactionDetails(String jsonUserTransactions)
 			throws BMSDAOException;*/
-	//public int insertUserTransactionDetails(Transaction transaction)
-		//	throws BMSDAOException;
+	public boolean insertUserTransactionDetails(Transaction transaction)
+			throws BMSDAOException;
 
 	public String getRegisteredBMSUserByAccountNo(String accountNumber)
 			throws BMSDAOException;

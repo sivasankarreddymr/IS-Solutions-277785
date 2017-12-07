@@ -1,0 +1,92 @@
+<div class="row" style="margin: 15px 0px 5px 0px;">
+	<div class="form-group">
+	    <h2 class="pull-left">Bank Statements</h2>
+	</div>
+</div>
+<div class="row" style="margin: 5px 0px 25px 0px;">
+	<div class="form-group">
+	    <h4 class="pull-left">View/ Download Statements</h4>
+	    <!-- <a  class="pull-right" ui-sref="login">Back to Home</a> -->
+	    <button class="btn btn-primary pull-right" ui-sref="transaction">Make New Transaction</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-4">
+		<div class="form-group">
+		    <label >From</label>
+		    <div class="input-group" data-provide="datepicker">
+			    <input type="text" class="form-control datepicker" ng-model='from'>
+			    <div class="input-group-addon">
+			        <span class="glyphicon glyphicon-th"></span>
+			    </div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Number of Transaction</label>
+  			<select class="form-control" ng-model='customer.noOfTransactions'>
+  				<option value='10'>10</option>
+  				<option value='50'>50</option>
+  				<option value='100'>100</option>
+  				<option value='ALL'>ALL</option>
+  			</select>
+  		</div>
+    </div>
+    <div class="col-sm-4">
+    	<div class="form-group">
+			<label>To</label>
+  			<div class="input-group" data-provide="datepicker">
+			    <input type="text" class="form-control datepicker" ng-model='to'>
+			    <div class="input-group-addon">
+			        <span class="glyphicon glyphicon-th"></span>
+			    </div>
+			</div>
+		</div>	
+		<div class="form-group">
+			<label>Policy Number</label>
+  			<input type='number' class="form-control" ng-model='customer.policyNumber'/>
+		</div>
+    </div>
+    <div class="col-sm-4">
+    	<div class="form-group">
+			<label>Transaction Type</label>
+  			<select class="form-control" ng-model='customer.transactionType'>
+  				<option value='C'>Credit</option>
+  				<option value='D'>Debit</option>
+  			</select>
+		</div>
+		<div class="form-group">
+			<div style="margin-top: 40px;display: flex;">
+				<button class="btn btn-primary" style="margin: 0px 10px;flex: 1;" ng-click="viewStatments()">View</button>
+    			<button class="btn btn-primary" style="margin: 0px 10px;flex: 1;" ng-click="downloadStatments()">Download</button>
+			</div>
+		</div>
+    </div>
+</div>
+
+<div class="row">
+	<div class="panel">
+		<div class="panel-header">
+			<h4>Bank Statements Details</h4>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th>Transaction Date</th>
+			      <th>Description</th>
+			      <th>Debit/Credit</th>
+			      <th>Balance</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr ng-repeat="record in details">
+			      <td>{{record.transactionDate}}</td>
+			  	  <td>{{record.description}}</td>
+				  <td>{{record.debitCredit}}</td>
+				  <td>{{record.balance}}</td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+	</div>
+</div>

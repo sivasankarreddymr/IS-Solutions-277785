@@ -83,9 +83,9 @@ public String getRegisteredBMSUserByAccountNo(String accountNumber)
 	try {
 
 		BasicDBObject whereQuery = new BasicDBObject();
-		whereQuery.put("accountNumber", accountNumber);
+		whereQuery.put("accountNo", accountNumber);
 		DBCursor cursor = getBMSMongoDB().getCollection(
-				"BMS_USER_REGISTRATION").find(whereQuery);
+				"Transaction").find();
 		bmsUser = cursor.next().toString();
 
 	} catch (Exception exc) {
@@ -122,10 +122,10 @@ private static DBObject createTransactionDBObject(Transaction transaction ) {
 	BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
 	long transactionId = (long) (Math.random() * 10000000000000000L);	
 	docBuilder.append("accountName", transaction.getAccountName());
-	docBuilder.append("accountNo", transaction.getAccountNO());   
+	//docBuilder.append("accountNo", transaction.getAccountNO());   
 	docBuilder.append("accountType",transaction.getAccountType());
 	docBuilder.append("accAmount",transaction.getAmount());
-	docBuilder.append("date",transaction.getTransactionDt());
+	//docBuilder.append("date",transaction.getTransactionDt());
 	docBuilder.append("type", transaction.getTransactionType());
 	docBuilder.append("id", transactionId);
 	transaction.setTransactionId(transactionId);
@@ -168,7 +168,7 @@ public String getRegisteredBMSUser(String userID, String pwd)
         DBCollection col  =getCollection(db,"Customer");
         BasicDBObject searchQuery = new BasicDBObject();
     	searchQuery.put("name", userID);
-    	searchQuery.put("name", pwd);
+    	searchQuery.put("password", pwd);
 
     	DBCursor cursor = col.find(searchQuery);    	
     	while (cursor.hasNext()) {

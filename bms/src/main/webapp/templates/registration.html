@@ -1,0 +1,141 @@
+<div class="row">
+	<div class="form-group">
+	    <h4 class="pull-left">Customer Registration</h4>
+	    <a  class="pull-right" ui-sref="login">Back to Login</a>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-4">
+		<div class="form-group">
+		    <label >Name</label>
+		    <input type="text" class="form-control"  ng-model='customer.name' >
+		</div>
+		<div class="form-group">
+		    <label >Date Of Birth</label>
+		    <div class="input-group" data-provide="datepicker">
+			    <input type="text" class="form-control datepicker" ng-model='dateOfBirth'>
+			    <div class="input-group-addon">
+			        <span class="glyphicon glyphicon-th"></span>
+			    </div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Contact Number</label>
+  			<input type='text' class="form-control" ng-model='customer.contactNumber'/>
+		</div>
+		<div class="form-group">
+			<label>Account type</label>
+  			<select class="form-control" ng-model='customer.accountType'>
+  				<option value='savings'>Savings</option>
+  				<option value='salary'>Salary</option>
+  			</select>
+		</div>
+		<div class="form-group">
+			<label>Branch Name</label>
+  			<input type='text' class="form-control" ng-model='customer.branchName'/>
+  		</div>
+    </div>
+    <div class="col-sm-4">
+    	<div class="form-group">
+		    <label >Username</label>
+		    <input type="text" class="form-control"  ng-model='customer.username' >
+		</div>
+		<div class="form-group">
+		    <label >Gender</label>
+		    <div style="display: flex;margin-top: 10px;">
+				<label class="radio-inline"><input type="radio" name="gender" ng-click='customer.gender = "M"' >Male</label>
+				<label class="radio-inline"><input type="radio" name="gender" ng-click='customer.gender = "F"' >Female</label>
+		    </div>
+		</div>
+		<div class="form-group">
+			<label>Email</label>
+  			<input type='email' class="form-control" ng-model='customer.emailId'/>
+		</div>
+		<div class="form-group">
+			<label>Registration Date</label>
+  			<div class="input-group" data-provide="datepicker">
+			    <input type="text" class="form-control datepicker" ng-model='registrationDate'>
+			    <div class="input-group-addon">
+			        <span class="glyphicon glyphicon-th"></span>
+			    </div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Initial Deposit Amount</label>
+  			<input type='text' class="form-control" ng-model='customer.depositAmount'/>
+		</div>
+    </div>
+    <div class="col-sm-4">
+    	<div class="form-group">
+		    <label >Password</label>
+		    <input type="password" class="form-control"  ng-model='customer.password' >
+		</div>
+		<div class="form-group">
+		    <label >Retype Password</label>
+		    <input type="password" class="form-control" ng-model='customer.confirmPassword'/>
+		</div>
+		<div  class="form-group">
+			<label>Citizenship</label>
+  		    <input type='text' class="form-control" ng-model='customer.citigenship'/>
+		</div>
+		<div class="form-group">
+  			<label>Citizen Status</label>
+  			<input type='text' class="form-control" ng-model='customer.citizenStatus'/>
+		</div>
+		<div class="form-group">
+			<label>Pan Number</label>
+  			<input type='text' class="form-control" ng-model='customer.panNumber'/>
+		</div>
+    </div>
+</div>
+<div class="row">
+	<div class="form-group">
+	    <h4>Address</h4>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-4">
+		<div class="form-group">
+		    <label>Address Line1</label>
+		    <input type='text' class="form-control" ng-model='customer.addressLine1'/>
+		</div>
+		<div class="form-group">
+		    <label>State</label>
+		    <input type='text' class="form-control" ng-model='customer.state'/>
+		</div>
+	</div>
+	
+	<div class="col-sm-4">
+		<div class="form-group">
+		    <label>Address Line2</label>
+		    <input type='text' class="form-control" ng-model='customer.addressLine1'/>
+		</div>
+		<div class="form-group">
+		    <label>Country</label>
+		    <input type='text' class="form-control" ng-model='customer.country'/>
+		</div>
+	</div>
+	
+	<div class="col-sm-4">
+		<div class="form-group">
+		    <label>City</label>
+		    <input type='text' class="form-control" ng-model='customer.city' />
+		</div>
+		<div class="form-group">
+		    <label>Pin Number</label>
+		    <input type='text' class="form-control" ng-model='customer.pinNumber'/>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<button class="btn pull-right" style="margin: 0px 10px;">Cancel</button>
+	<button class="btn btn-primary pull-left" style="margin: 0px 10px;" ng-click="registration()">Register</button> 
+	<button class="btn btn-info pull-left" style="margin: 0px 10px;">Reset</button>
+</div>
+
+<!-- <modal visible="showModal" poptitle="poptitle" popmessage="popmessage"> </modal> -->
+
+
+

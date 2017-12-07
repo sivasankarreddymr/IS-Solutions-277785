@@ -2,9 +2,13 @@ package com.bms.model;
 
 import java.util.Date;
 
-//@Document(collection="Customer")
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection="Customer")
 public class Customer {
 
+	@NotEmpty
 	private String name;
 	private String username;
 	private String password;
@@ -18,6 +22,9 @@ public class Customer {
 	private String email;
 	private Double initialDeposit;
 	private long accountNumber;
+	private String firstName;
+	private String lastName;
+	private String customerId;
 	
 	public String getName() {
 		return name;
@@ -96,6 +103,24 @@ public class Customer {
 	}
 	public void setAccountNumber(long acctNo) {
 		this.accountNumber = acctNo;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 	
 	
