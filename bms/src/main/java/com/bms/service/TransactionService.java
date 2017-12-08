@@ -1,5 +1,6 @@
 package com.bms.service;
 
+import java.math.BigDecimal;
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
@@ -24,15 +25,21 @@ public class TransactionService {
   }
   
   
-  private long generateUniqueAccNumber(){
-	  long uniqueAccountNumber = (long) (Math.random() * 10000000000000000L);
-	 return  uniqueAccountNumber;
-  }
   
-  private String generateUniqueCustomerId() {
-	  Random random = new Random();
-	  String uniqueCustomerId = "RRR-"+random.nextInt(900);
-	  return uniqueCustomerId;
+  
+ 
+  
+  public void calculateTransaction(Transaction transaction,Customer customer){
+	    String transactionType = transaction.getTransactionType();
+	    BigDecimal totalAvailableBalance = new BigDecimal(0.0);
+	    if("C".equalsIgnoreCase(transactionType)){
+	    	totalAvailableBalance = customer.getTotalAccountBalance().add(transaction.getAmount());
+	    }else if("D".equalsIgnoreCase(transactionType)){
+	    	totalAvailableBalance = customer.getTotalAccountBalance().subtract(transaction.getAmount());
+	    }
+	    
+	    transaction.setTotalAvailableBalance(totalAvailableBalance);
+	    customer.setTotalAccountBalance(totalAvailableBalance);
   }
 
 }

@@ -50,7 +50,7 @@ public class CustomerController {
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	public String registerUser(@RequestBody @Valid Customer customer, BindingResult bindingResult) throws BMSDAOException{
 		 System.out.println("username>>>"+customer.getUsername());
-		 /* Response response= new Response();
+		  Response response= new Response();
 		if(bindingResult.hasErrors()){
 			List<ObjectError> errorsList = bindingResult.getAllErrors();
 			response.setSuccess(false);
@@ -62,11 +62,9 @@ public class CustomerController {
 			   customer = customerRepository.insert(customer);
 			   transactionRepository.insert(transaction);
 			   
-		}*/
+		}
 		 
-		/* List<Customer> customerList = customerRepository.findAll();
-		 System.out.println("customerList ::"+customerList);*/
-		 Transaction txn = new Transaction();
+		
 		
 	
 		return "register";
@@ -104,6 +102,13 @@ public class CustomerController {
 		  Response response= new Response();
 		  try{			
 			//call next layer method
+			  Customer customer = customerRepository.findByAccountNumber(transaction.getAccountNumber());
+			  transactionService.calculateTransaction(transaction, customer);
+			  Customer updatedCustomer = customer;
+			  customerRepository.delete(customer.getId());
+			  customerRepository.insert(updatedCustomer);
+		//	 customer = customerRepository.findByAccountNumber(customer.getAccountNumber(),customer.getTotalAccountBalance());
+			  
 			  transactionRepository.insert(transaction);
 			response.setSuccess(true);
 			response.setData(null);
@@ -121,9 +126,10 @@ public class CustomerController {
 		  Response response= new Response();
 		  try{			
 			//call next layer method
-			  //transactionRepository.findAll(Transaction.);
+			List<Transaction> txnList = transactionRepository.findByAccountNumber(new Long(3441347761659200L).longValue());
+			
 			response.setSuccess(true);
-			response.setData(null);
+			response.setData(txnList);
 		  }catch(Exception ex){
 				response.setSuccess(false);
 				response.setData("Transaction Failed. Please contact alpsupportteam@cts.com.");

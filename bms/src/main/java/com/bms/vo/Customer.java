@@ -1,14 +1,15 @@
 package com.bms.vo;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="Customer")
 public class Customer {
 	
-	
+	@Id
+	private String id;
 	private String name;
 	private String username;
 	private String password;
@@ -34,7 +35,8 @@ public class Customer {
 	private String customerId;
 	private String firstName;
 	private String lastName;
-	private Transaction transaction;
+	private BigDecimal totalAccountBalance;
+	
 	
 	public String getCustomerId() {
 		return customerId;
@@ -176,12 +178,7 @@ public class Customer {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Transaction getTransaction() {
-		return transaction;
-	}
-	public void setTransaction(Transaction transaction) {
-		this.transaction = transaction;
-	}
+	
 	public BigDecimal getDepositAmount() {
 		return depositAmount;
 	}
@@ -193,6 +190,18 @@ public class Customer {
 	}
 	public void setRegistrationDate(String registrationDate) {
 		this.registrationDate = registrationDate;
+	}
+	public BigDecimal getTotalAccountBalance() {
+		return totalAccountBalance;
+	}
+	public void setTotalAccountBalance(BigDecimal totalAccountBalance) {
+		this.totalAccountBalance = totalAccountBalance;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	

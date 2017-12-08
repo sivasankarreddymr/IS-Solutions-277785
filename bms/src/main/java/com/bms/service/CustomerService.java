@@ -5,7 +5,6 @@ import java.util.Random;
 import org.springframework.stereotype.Service;
 
 import com.bms.vo.Customer;
-import com.bms.vo.Transaction;
 
 
 
@@ -16,7 +15,7 @@ public class CustomerService {
 	
 	  customer.setAccountNumber(generateUniqueAccNumber());
 	  customer.setCustomerId(generateUniqueCustomerId());
-	 // customer.setTransaction(generateTransactionDetails(customer));
+	  customer.setTotalAccountBalance(customer.getDepositAmount());
 	  
 	  return customer;
   }
@@ -33,16 +32,6 @@ public class CustomerService {
 	  return uniqueCustomerId;
   }
   
-  private Transaction generateTransactionDetails(Customer customer){
-	  
-	  Transaction transaction = customer.getTransaction();
-	  transaction.setAccountNumber(customer.getAccountNumber());
-	  transaction.setAccountType(customer.getAccountType());
-	  transaction.setAmount(customer.getDepositAmount());
-	  transaction.setTransactionDate(customer.getRegistrationDate());
-	  transaction.setTransactionType("C");
-	  transaction.setTotalAvailableBalance(transaction.getAmount());
-	  return transaction;
-  }
+ 
 
 }

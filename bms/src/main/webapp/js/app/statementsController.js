@@ -11,10 +11,10 @@
 		$scope.details = [];
 		
 		$scope.viewStatments =function(){
-	      /*$http.post('/BMSApp/viewStatements', $scope.customer).then(function(response){
+	      $http.post('/BMSApp/viewStatements', $scope.customer).then(function(response){
 	    	  if(response.data.success)
 	    	  	$scope.details = response.data.data;
-	      }); */
+	      });
 		  $scope.details = [{
 			  transactionDate: '12/12/2017',
 			  description: 'Abc xyz kjh',
