@@ -5,13 +5,28 @@
 	</div>
 </div>
 <div class="row">
+	<div class="form-group">
+	    <ul>
+	    	<li ng-repeat="error in errorsList">
+	    		<span class="text-danger">{{error}}</span>
+	    	</li>
+	    </ul>
+	</div>
+</div>
+<div class="row" ng-if="successmsg">
+	<div class="alert alert-success">
+	  <strong> {{successmsg}}.</strong>
+	</div>
+</div>
+<form name="registerForm" novalidate>
+<div class="row">
 	<div class="col-sm-4">
 		<div class="form-group">
-		    <label >Name</label>
-		    <input type="text" class="form-control"  ng-model='customer.name' >
+		    <label >Name<span class="text-danger astrick-cls">*</span></label>
+		    <input type="text" class="form-control"  ng-model='customer.name' required/>
 		</div>
 		<div class="form-group">
-		    <label >Date Of Birth</label>
+		    <label >Date Of Birth<span class="text-danger astrick-cls">*</span></label>
 		    <div class="input-group" data-provide="datepicker">
 			    <input type="text" class="form-control datepicker" ng-model='dateOfBirth'>
 			    <div class="input-group-addon">
@@ -20,73 +35,74 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label>Contact Number</label>
-  			<input type='text' class="form-control" ng-model='customer.contactNumber'/>
+			<label>Contact Number<span class="text-danger astrick-cls">*</span></label>
+  			<input type='text' class="form-control" ng-model='customer.contactNumber' required/>
 		</div>
 		<div class="form-group">
-			<label>Account type</label>
-  			<select class="form-control" ng-model='customer.accountType'>
+			<label>Account type<span class="text-danger astrick-cls">*</span></label>
+  			<select  name="account_type" class="form-control" ng-model='customer.accountType' required>
   				<option value='savings'>Savings</option>
   				<option value='salary'>Salary</option>
   			</select>
 		</div>
 		<div class="form-group">
-			<label>Branch Name</label>
-  			<input type='text' class="form-control" ng-model='customer.branchName'/>
+			<label>Branch Name<span class="text-danger astrick-cls">*</span></label>
+  			<input type='text' class="form-control" ng-model='customer.branchName' required/>
   		</div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-		    <label >Username</label>
-		    <input type="text" class="form-control"  ng-model='customer.username' >
+		    <label >Username<span class="text-danger astrick-cls">*</span></label>
+		    <input type="text" class="form-control"  ng-model='customer.username'  required/>
 		</div>
 		<div class="form-group">
-		    <label >Gender</label>
+		    <label >Gender<span class="text-danger astrick-cls">*</span></label>
 		    <div style="display: flex;margin-top: 10px;">
 				<label class="radio-inline"><input type="radio" name="gender" ng-click='customer.gender = "M"' >Male</label>
 				<label class="radio-inline"><input type="radio" name="gender" ng-click='customer.gender = "F"' >Female</label>
 		    </div>
 		</div>
 		<div class="form-group">
-			<label>Email</label>
-  			<input type='email' class="form-control" ng-model='customer.emailId'/>
+			<label>Email<span class="text-danger astrick-cls">*</span></label>
+  			<input type='email' class="form-control" ng-model='customer.emailId' required/>
 		</div>
 		<div class="form-group">
-			<label>Registration Date</label>
+			<label>Registration Date<span class="text-danger astrick-cls">*</span></label>
   			<div class="input-group" data-provide="datepicker">
-			    <input type="text" class="form-control datepicker" ng-model='registrationDate'>
+			    <input type="text" class="form-control datepicker" ng-model='registrationDate' placeholder="MM/DD/YYYY" />
 			    <div class="input-group-addon">
 			        <span class="glyphicon glyphicon-th"></span>
 			    </div>
 			</div>
 		</div>
 		<div class="form-group">
-			<label>Initial Deposit Amount</label>
-  			<input type='text' class="form-control" ng-model='customer.depositAmount'/>
+			<label>Initial Deposit Amount<span class="text-danger astrick-cls">*</span></label>
+  			<input type='text' class="form-control" ng-model='customer.depositAmount' required/>
 		</div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-		    <label >Password</label>
-		    <input type="password" class="form-control"  ng-model='customer.password' >
+		    <label >Password<span class="text-danger astrick-cls">*</span></label>
+		    <input type="password" class="form-control"  ng-model='customer.password' required/>
 		</div>
 		<div class="form-group">
-		    <label >Retype Password</label>
-		    <input type="password" class="form-control" ng-model='customer.confirmPassword'/>
+		    <label >Retype Password<span class="text-danger astrick-cls">*</span></label>
+		    <input type="password" class="form-control" ng-model='customer.confirmPassword' required/>
 		</div>
 		<div  class="form-group">
-			<label>Citizenship</label>
-  		    <input type='text' class="form-control" ng-model='customer.citigenship'/>
+			<label>Citizenship<span class="text-danger astrick-cls">*</span></label>
+  		    <input type='text' class="form-control" ng-model='customer.citigenship' required/>
 		</div>
 		<div class="form-group">
-  			<label>Citizen Status</label>
-  			<input type='text' class="form-control" ng-model='customer.citizenStatus'/>
+  			<label>Citizen Status<span class="text-danger astrick-cls">*</span></label>
+  			<input type='text' class="form-control" ng-model='customer.citizenStatus' required/>
 		</div>
 		<div class="form-group">
-			<label>Pan Number</label>
-  			<input type='text' class="form-control" ng-model='customer.panNumber'/>
+			<label>PAN Number<span class="text-danger astrick-cls">*</span></label>
+  			<input type='text' class="form-control" ng-model='customer.panNumber' required/>
 		</div>
     </div>
+    
 </div>
 <div class="row">
 	<div class="form-group">
@@ -128,14 +144,12 @@
 		</div>
 	</div>
 </div>
-
+</form>
 <div class="row">
-	<button class="btn pull-right" style="margin: 0px 10px;">Cancel</button>
-	<button class="btn btn-primary pull-left" style="margin: 0px 10px;" ng-click="registration()">Register</button> 
-	<button class="btn btn-info pull-left" style="margin: 0px 10px;">Reset</button>
+	<button class="btn pull-right" style="margin: 0px 10px;" ng-click="cancel()">Cancel</button>
+	<button class="btn btn-primary pull-left" style="margin: 0px 10px;" ng-click="registration()" ng-disabled="registerForm.$invalid">Register</button> 
+	<button class="btn btn-info pull-left" style="margin: 0px 10px;" ng-click="resetForm()" >Reset</button>
 </div>
-
-<!-- <modal visible="showModal" poptitle="poptitle" popmessage="popmessage"> </modal> -->
 
 
 

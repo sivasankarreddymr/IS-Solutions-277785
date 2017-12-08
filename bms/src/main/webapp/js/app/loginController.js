@@ -6,7 +6,7 @@
 			  username:'',
 			  password:''
 		};
-	  
+		$rootScope.username = '';
 		$scope.login =function(){
 	      $http.post('/BMSApp/login', $scope.user).then(function(response){
 	    	  if(response.data.success){

@@ -9,15 +9,19 @@
 	                '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' + 
 	                '<h4 class="modal-title">{{poptitle}}</h4>' + 
 	              '</div>' + 
-	              '<div class="modal-body" ng-transclude>{{popmessage}}</div>' + 
+	              '<div class="modal-body"><h4>{{newpopmessage}}</h4></div>' + 
 	            '</div>' + 
 	          '</div>' + 
 	        '</div>',
 	      restrict: 'E',
-	      transclude: true,
+	      //transclude: true,
 	      replace:true,
 	      scope:true,
 	      link: function postLink(scope, element, attrs) {
+	    	scope.$watch(attrs.popmessage, function(value){
+	    		if(value)
+	    			scope.newpopmessage = value;
+	    	});
 	        scope.$watch(attrs.visible, function(value){
 	          if(value == true)
 	            $(element).modal('show');

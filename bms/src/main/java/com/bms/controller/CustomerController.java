@@ -1,5 +1,6 @@
 package com.bms.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -14,129 +15,112 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bms.dao.BMSDAOException;
-import com.bms.repository.CustomerRespository;
-import com.bms.repository.TransactionRespository;
 import com.bms.service.CustomerService;
 import com.bms.service.TransactionService;
 import com.bms.vo.Customer;
+import com.bms.vo.Request;
 import com.bms.vo.Response;
+import com.bms.vo.Statement;
 import com.bms.vo.Transaction;
 import com.bms.vo.User;
-
 
 @RestController
 public class CustomerController {
 
-	 @Autowired
-	CustomerRespository customerRepository;
-	 @Autowired
-	 CustomerService customerService;
-	
-	 @Autowired
-	 TransactionService transactionService;
-	 
-	 @Autowired
-	 TransactionRespository transactionRepository;
-	
+	@Autowired
+	CustomerService customerService;
+
+	@Autowired
+	TransactionService transactionService;
+
 	@RequestMapping("/home")
-	public ModelAndView home(){
-		
+	public ModelAndView home() {
+
 		ModelAndView model = new ModelAndView("index");
 		return model;
 	}
 	
+	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Response registerUser(@RequestBody @Valid Customer customer,
+			BindingResult bindingResult) {
+		Response response = new Response();
+		try {
+			if(bindingResult.hasErrors()){
+				List<ObjectError> errorsList = bindingResult.getAllErrors();
+				List<String> errorMessage = new ArrayList<String>();
+				for(ObjectError objectError: errorsList){
+					String codes[] =objectError.getCodes();
+					String field = codes[0].split("\\.")[2];
+					errorMessage.add(field+" "+objectError.getDefaultMessage());
+				}
+				response.setSuccess(false);
+				response.setData(errorMessage.toArray());
+			
+			} else {
+				customer = customerService.registerCustomer(customer);
+				transactionService.insertTransactionDetails(customer);
+				response.setSuccess(true);
+				response.setData(customer.getResultMessage());
 	
-	@RequestMapping(value="/register", method = RequestMethod.POST)
-	public String registerUser(@RequestBody @Valid Customer customer, BindingResult bindingResult) throws BMSDAOException{
-		 System.out.println("username>>>"+customer.getUsername());
-		  Response response= new Response();
-		if(bindingResult.hasErrors()){
-			List<ObjectError> errorsList = bindingResult.getAllErrors();
-			response.setSuccess(false);
-			response.setData(errorsList);
-		}else{
-			   customer = customerService.fillCustomerDetails(customer);
-			   Transaction transaction = transactionService.fillTransactionDetails(customer);
-			   
-			   customer = customerRepository.insert(customer);
-			   transactionRepository.insert(transaction);
-			   
-		}
-		 
-		
-		
-	
-		return "register";
-	}
-	
-	
-
-	  @RequestMapping(value="/login", method=RequestMethod.POST, consumes = "application/json")
-	  @ResponseBody
-	  public Response login(@RequestBody User user ) {
-		  Response response= new Response();
-		  try{
-			System.out.println(customerService+"  login method called" +user.getUsername());
-			if(user.getUsername().equals("sathish")){
-				String str=null;
-				str.toString();
 			}
-			Customer cust= new Customer();
-			cust.setName("Yasin");
-			cust.setUsername("yasin");
-			cust.setAccountNumber(0001001);
-			response.setSuccess(true);
-			response.setData(cust);
-		  }catch(Exception ex){
+		} catch (Exception ex) {
+			response.setSuccess(false);
+			response.setData("Registration Failed. Please contact bmssupportteam@cts.com. ");
+		}
+		return response;
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Response login(@RequestBody User user) {
+		Response response = new Response();
+		try {
+			Customer customer = customerService.authenticateUser(user);
+			if (customer != null) {
+				response.setSuccess(true);
+				response.setData(customer);
+			} else {
 				response.setSuccess(false);
 				response.setData("Invalid Credentials");
-		  }
-		  return response;
-	  }
-	
-	  @RequestMapping(value="/saveTransaction", method=RequestMethod.POST, consumes = "application/json")
-	  @ResponseBody
-	  public Response saveTransaction(@RequestBody Transaction transaction ) {
-		  System.out.println(" saveTransaction method called" +transaction.getAccountNumber());
-		  Response response= new Response();
-		  try{			
-			//call next layer method
-			  Customer customer = customerRepository.findByAccountNumber(transaction.getAccountNumber());
-			  transactionService.calculateTransaction(transaction, customer);
-			  Customer updatedCustomer = customer;
-			  customerRepository.delete(customer.getId());
-			  customerRepository.insert(updatedCustomer);
-		//	 customer = customerRepository.findByAccountNumber(customer.getAccountNumber(),customer.getTotalAccountBalance());
-			  
-			  transactionRepository.insert(transaction);
+			}
+
+		} catch (Exception ex) {
+			response.setSuccess(false);
+			response.setData("Invalid Credentials");
+		}
+		return response;
+	}
+
+	@RequestMapping(value = "/saveTransaction", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Response saveTransaction(@RequestBody Transaction transaction) {
+		Response response = new Response();
+		try {			
+			transactionService.saveTransaction(transaction);
 			response.setSuccess(true);
-			response.setData(null);
-		  }catch(Exception ex){
-				response.setSuccess(false);
-				response.setData("Transaction Failed. Please contact alpsupportteam@cts.com.");
-		  }
-		  return response;
-	  }
-	  
-	  @RequestMapping(value="/viewStatements", method=RequestMethod.POST, consumes = "application/json")
-	  @ResponseBody
-	  public Response viewStatements(@RequestBody Customer customer ) {
-		  System.out.println(" viewStatements method called" +customer.getUsername());
-		  Response response= new Response();
-		  try{			
-			//call next layer method
-			List<Transaction> txnList = transactionRepository.findByAccountNumber(new Long(3441347761659200L).longValue());
-			
+			response.setData(transaction.getResultMessage());
+		} catch (Exception ex) {
+			response.setSuccess(false);
+			response.setData("Transaction Failed. Please contact bmssupportteam@cts.com.");
+		}
+		return response;
+	}
+
+	@RequestMapping(value = "/viewStatements", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Response viewStatements(@RequestBody Request request) {
+
+		Response response = new Response();
+		try {
+			List<Statement> stmtList = transactionService.viewStatement(request);
 			response.setSuccess(true);
-			response.setData(txnList);
-		  }catch(Exception ex){
-				response.setSuccess(false);
-				response.setData("Transaction Failed. Please contact alpsupportteam@cts.com.");
-		  }
-		  return response;
-	  }
-	
-	
-	
+			response.setData(stmtList);
+		} catch (Exception ex) {
+			response.setSuccess(false);
+			response.setData("Transaction Failed. Please contact bmssupportteam@cts.com.");
+		}
+		return response;
+	}
+
 }

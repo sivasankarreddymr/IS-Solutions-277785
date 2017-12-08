@@ -1,6 +1,7 @@
 package com.bms.vo;
 
 public class Statement {
+	private String accountNumber;
 	private String transactionDate;
 	private String description;
 	private String debitCredit;
@@ -28,5 +29,11 @@ public class Statement {
 	}
 	public void setBalance(long balance) {
 		this.balance = balance;
+	}
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 }
