@@ -8,7 +8,7 @@
 	<div class="col-sm-4">
 		<div class="form-group">
 		    <label >Account Number</label>
-		    <input type="text" class="form-control"  ng-model='customer.accountNumber' >
+		    <input type="number" class="form-control"  ng-model='customer.accountNumber' readOnly>
 		</div>
 		<div class="form-group">
 			<label>Transaction Type</label>
@@ -19,14 +19,16 @@
 		</div>		
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-		    <label >Account Name</label>
-		    <input type="text" class="form-control"  ng-model='customer.accountname' >
-		</div>
+    	
 		
 		<div class="form-group">
 			<label>Amount</label>
   			<input type='number' class="form-control" ng-model='customer.amount'/>
+		</div>
+		
+		<div class="form-group">
+		    <label >Remarks</label>
+		    <input type="text" class="form-control"  ng-model='customer.accountname' >
 		</div>
 		
     </div>
@@ -42,7 +44,10 @@
 </div>
 
 <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
-	<button class="btn pull-right" style="margin: 0px 10px;">Cancel</button>
+	<button class="btn pull-right" style="margin: 0px 10px;" ng-click="cancel()">Cancel</button>
 	<button class="btn btn-primary pull-left" style="margin: 0px 10px;" ng-click="saveTransaction()">Submit</button> 
-	<button class="btn btn-info pull-left" style="margin: 0px 10px;">Reset</button>
+	<button class="btn btn-info pull-left" style="margin: 0px 10px;" ng-click="resetForm()">Reset</button>
 </div>
+
+
+<modal visible="showModal" poptitle="poptitle" popmessage="popmessage"> </modal>

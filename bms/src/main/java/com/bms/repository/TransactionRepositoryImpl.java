@@ -6,15 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-
 import com.bms.vo.Transaction;
 
+public class TransactionRepositoryImpl implements TransactionRepositoryCustom {
 
-
-
-public class TransactionRepositoryImpl implements  TransactionRepositoryCustom{
-
-	
 	@Autowired
 	MongoTemplate mongoTemplate;
 
@@ -24,10 +19,10 @@ public class TransactionRepositoryImpl implements  TransactionRepositoryCustom{
 		return txnList;
 	}
 
-	
-	//Query query = new Query(Criteria.where("b").elemMatch(Criteria.where("startDate").lte(date).and("endDate").gte(date));  to get data between dates
-	//Criteria.where("expenseDate").gte(calendar1.getTime()).lte(calendar2.getTime()).and("userid").is(uid);}
-	
-
+	@Override
+	public List<Transaction> findByTransactionType(long accountNumber,String transactionType) {
+		List<Transaction> txnList = mongoTemplate.find(Query.query(Criteria.where("accountNumber").is(accountNumber).andOperator(Criteria.where("transactionType").is(transactionType))), Transaction.class);
+		return txnList;
+	}
 
 }

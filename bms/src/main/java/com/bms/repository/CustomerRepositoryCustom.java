@@ -8,4 +8,5 @@ public interface CustomerRepositoryCustom {
 
 	Customer findByAccountNumber(long accountNumber);
 	Customer findByAccountNumber(long accountNumber,BigDecimal totalAccountBalance);
+	Customer findByUsername(String username);
 }

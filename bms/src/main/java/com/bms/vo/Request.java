@@ -2,6 +2,7 @@ package com.bms.vo;
 
 public class Request {
 
+	private String accountNumber;
 	private String from;
 	private String to;
 	private String noOfTransactions;
@@ -36,5 +37,11 @@ public class Request {
 	}
 	public void setTransactionType(String transactionType) {
 		this.transactionType = transactionType;
+	}
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 }

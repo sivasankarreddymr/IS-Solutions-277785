@@ -2,6 +2,9 @@ package com.bms.vo;
 
 import java.math.BigDecimal;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Customer {
 	
 	@Id
-	private String id;
+	private String id;	
 	private String name;
 	private String username;
 	private String password;
@@ -23,7 +26,9 @@ public class Customer {
 	private String registrationDate;
 	private String citizenStatus;
 	private String branchName;
+	@Range(min = 0l, message = "Deposit amount must be greater than Zero")
 	private BigDecimal depositAmount;
+	@Length(min = 12, message = "PAN Number must be 12 characters")
 	private String panNumber;
 	private String addressLine1;
 	private String addressLine2;
@@ -31,12 +36,13 @@ public class Customer {
 	private String state;
 	private String country;
 	private long accountNumber;
+	//@Length(min = 06, message = "must be at least 06 characters")
 	private long pinNumber;
 	private String customerId;
 	private String firstName;
 	private String lastName;
 	private BigDecimal totalAccountBalance;
-	
+	private String resultMessage;
 	
 	public String getCustomerId() {
 		return customerId;
@@ -202,6 +208,12 @@ public class Customer {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getResultMessage() {
+		return resultMessage;
+	}
+	public void setResultMessage(String resultMessage) {
+		this.resultMessage = resultMessage;
 	}
 	
 	

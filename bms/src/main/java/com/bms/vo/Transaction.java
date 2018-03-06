@@ -1,12 +1,15 @@
 package com.bms.vo;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="Transaction")
 public class Transaction {
+	
+	@Id
+	private String id;
 	private long accountNumber;
 	private String transactionType;
 	private String accountname;
@@ -14,7 +17,7 @@ public class Transaction {
 	private BigDecimal amount;
 	private BigDecimal totalAvailableBalance;
 	private String transactionDate;
-	
+	private String resultMessage;
 	
 	public String getTransactionType() {
 		return transactionType;
@@ -57,6 +60,18 @@ public class Transaction {
 	}
 	public void setTransactionDate(String transactionDate) {
 		this.transactionDate = transactionDate;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getResultMessage() {
+		return resultMessage;
+	}
+	public void setResultMessage(String resultMessage) {
+		this.resultMessage = resultMessage;
 	}
 	
 }
